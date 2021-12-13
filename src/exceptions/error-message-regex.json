@@ -1,0 +1,8 @@
+{
+    "(validation failed).*(is required)" : "406 validation failed",
+    "E11000 duplicate key error collection" : "409 duplicated record",
+    "is not a function" : "500 TypeError detected",
+    "is not iterable": "500 TypeError detected",
+    "(Cannot read property).*(of undefined)" : "500 TypeError detected",
+    "(Cannot set property).*(of undefined)" : "500 TypeError detected"
+}

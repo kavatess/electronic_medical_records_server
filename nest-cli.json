@@ -1,0 +1,19 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "assets": [
+      { "include": "api/observation/chart-template/data/","watchAssets": true },
+      { "include": "api/consultation/data/rejection-templates/","watchAssets": true }      
+    ],    
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "classValidatorShim": true,
+          "introspectComments": true
+        }
+      }
+    ]
+  }
+}

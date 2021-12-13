@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+
+# IDE
+/.idea
+/.awcache
+/.vscode
+
+# misc
+npm-debug.log
+
+# example
+/quick-start
+
+# tests
+/coverage
+/.nyc_output
+
+# dist
+/dist
+
+*-lock.json
+*.lock
+.env
+
+/src/api/user/shortlink/shortlink.controller.ts

@@ -1,0 +1,21 @@
+{
+    "title": "Please send them your reason of declination",
+    "options": [
+        {
+            "key": "reason-1",
+            "value": "Lacking of the necessary information needed for an exact answer."
+        },
+        {
+            "key": "reason-2",
+            "value": "The case needs a two-way communication before concluding with a proper diagnosis or best advice. Please make an adequate medical record on our system then make a voice or video CALL with our doctor."
+        },
+        {
+            "key": "reason-3",
+            "value": "Please come to the nearest medical center soon."
+        },
+        {
+            "key": "other",
+            "value": "Type the reason / Or the name of Lab test and/or diagnostic image, etc., suggesting a tele-consultation"
+        }
+    ]
+}

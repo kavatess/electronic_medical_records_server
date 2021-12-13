@@ -1,0 +1,17 @@
+{
+    "title": "Lý do từ chối gửi bệnh nhân",
+    "options": [
+        {
+            "key": "reason-1",
+            "value": "Bận và không thể nhận cuộc gọi (đã biết có tính năng đổi giờ hẹn)"
+        },
+        {
+            "key": "reason-2",
+            "value": "Khuyên bệnh nhân nhanh chóng đến cơ sở y tế gần nhất."
+        },
+        {
+            "key": "other",
+            "value": "Nhập tay lý do từ chối / Khuyên bệnh nhân khám chuyên khoa khác / Yêu cầu bổ sung thông tin cần thiết và đặt hẹn lại"
+        }
+    ]
+}

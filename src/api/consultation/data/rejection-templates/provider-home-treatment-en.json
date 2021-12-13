@@ -1,0 +1,17 @@
+{
+    "title": "Send Patient your reason of declination",
+    "options": [
+        {
+            "key": "reason-1",
+            "value": "Really busy, cannot receive the call (neither want to re-schedule)"
+        },
+        {
+            "key": "reason-2",
+            "value": "Should come to the nearest medical center soon."
+        },
+        {
+            "key": "other",
+            "value": "Type your reason / Suggest to call another specialty or doctor / Or ask for any Lab test or diagnostic image, etc., before booking a call again"
+        }
+    ]
+}

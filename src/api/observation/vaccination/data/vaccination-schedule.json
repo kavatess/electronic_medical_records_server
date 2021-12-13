@@ -1,0 +1,531 @@
+[
+    {
+        "disease": "tuberculosis",
+        "label": "Lao",
+        "vaccines": [
+            {
+                "name": "Bacillus Calmette–Guérin (BCG)",
+                "priority" : 1,
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 0,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "rotavirus",
+        "label": "Tiêu chảy do Rota Virus",
+        "vaccines": [
+            {
+                "name": "rotarix",
+                "priority": 1,
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 60,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 120,
+                        "daysFromLastDose": 60,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            },
+            {
+                "name": "rotateq",
+                "priority": 2,
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 60,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 120,
+                        "daysFromLastDose": 60,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 3,
+                        "daysFromBirth": 180,
+                        "daysFromLastDose": 60,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "6in1",
+        "label": "Ho gà, bạch hầu, uốn ván, bại liệt, viêm màng não mũ, viêm họng, viêm phổi do HIB, viêm gan B (6 in 1)",
+        "vaccines": [
+            {
+                "name": "hexaxim",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 60,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 90,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 3,
+                        "daysFromBirth": 120,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 4,
+                        "daysFromBirth": 450,
+                        "daysFromLastDose": 330,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            },
+            {
+                "name": "infanrix",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 60,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 90,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 3,
+                        "daysFromBirth": 120,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 4,
+                        "daysFromBirth": 450,
+                        "daysFromLastDose": 330,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "5in1",
+        "label": "Ho gà, bạch hầu, uốn ván, bại liệt, viêm màng não mủ, viêm họng, viêm phổi do HIB (5 trong 1)",
+        "vaccines": [
+            {
+                "name": "pentaxim",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 60,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 90,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 3,
+                        "daysFromBirth": 120,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 4,
+                        "daysFromBirth": 450,
+                        "daysFromLastDose": 330,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "hepatitis-b",
+        "label": "Viêm gan B",
+        "vaccines": [
+            {
+                "name": "engerix-b",
+                "priority" : 1,
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 10,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 60,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 3,
+                        "daysFromBirth": 90,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 4,
+                        "daysFromBirth": 120,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 5,
+                        "daysFromBirth": 450,
+                        "daysFromLastDose": 330,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "pneumococcal-conjugate",
+        "label": "Hội chứng nhiễm trùng, viêm màng não, viêm phổi, nhiễm khuẩn huyết, viêm tai giữa do phế cầu",
+        "vaccines": [
+            {
+                "name": "synflorix",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 60,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 90,
+                        "daysFromLastDose": 120,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 3,
+                        "daysFromBirth": 120,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 4,
+                        "daysFromBirth": 300,
+                        "daysFromLastDose": 180,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "flu",
+        "label": "cúm",
+        "vaccines": [
+            {
+                "name": "vaxigrip-0.25m",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 180,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 210,
+                        "daysFromLastDose": 30,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 3,
+                        "daysFromBirth": 360,
+                        "daysFromLastDose": 0,
+                        "note": "lặp lại mỗi năm vào đầu mùa cúm",
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "meales",
+        "label": "Sởi ",
+        "vaccines": [
+            {
+                "name": "mvvac",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 270,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 540,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "mmr",
+        "label": "Sởi - Quai bị - Rubella",
+        "vaccines": [
+            {
+                "name": "MMR-II",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 360,
+                        "daysFromLastDose": 0,
+                        "note": "lặp lại sau 2 tuổi",
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 1460,
+                        "daysFromLastDose": 0,
+                        "note": "lặp lại sau 2 tuổi",
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "serogroup-b-and-c-meningococcal",
+        "label": "Viêm màng não do mô cầu tuýp B và C",
+        "vaccines": [
+            {
+                "name": "va-mengoc-bc",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 180,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 240,
+                        "daysFromLastDose": 60,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "varicella",
+        "label": "Thủy đậu",
+        "vaccines": [
+            {
+                "name": "varivax",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 360,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 420,
+                        "daysFromLastDose": 60,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "japanese-encephalitis",
+        "label": "Viêm não Nhật Bản",
+        "vaccines": [
+            {
+                "name": "imojev",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 360,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 360,
+                        "daysFromLastDose": 7,
+                        "note": "nhắc lại 3 năm 1 lần, cho đến 15 tuổi",
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "hepatitis-a",
+        "label": "Viêm gan A",
+        "vaccines": [
+            {
+                "name": "avaxim",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 360,
+                        "daysFromLastDose": 0,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    },
+                    {
+                        "dose": 2,
+                        "daysFromBirth": 540,
+                        "daysFromLastDose": 180,
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "disease": "typhoid-fever",
+        "label": "Thương hàn",
+        "vaccines": [
+            {
+                "name": "typhoid-vi",
+                "priority" : 1,                
+                "schedule": [
+                    {
+                        "dose": 1,
+                        "daysFromBirth": 720,
+                        "daysFromLastDose": 0,
+                        "note": "nhắc lại 3 năm 1 lần",
+                        "suggestedDate": "",
+                        "observedAt": "",
+                        "state": "pending"
+                    }
+                ]
+            }
+        ]
+    }
+]

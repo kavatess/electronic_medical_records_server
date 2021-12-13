@@ -1,0 +1,21 @@
+{
+    "title": "Chọn lý do từ chối gửi bệnh nhân",
+    "options": [
+        {
+            "key": "reason-1",
+            "value": "Vì câu hỏi thiếu dữ kiện, rất tiếc không thể cho bạn một câu trả lời chính xác."
+        },
+        {
+            "key": "reason-2",
+            "value": "Tình huống này cần được bác sĩ tư vấn trực tiếp nhằm đưa ra kết luận chuẩn xác và lời khuyên hữu ích. Hãy điền đầy đủ thông tin lên bệnh án điện tử và Gọi thoại hoặc video với bác sĩ."
+        },
+        {
+            "key": "reason-3",
+            "value": "Nên nhanh chóng đưa bệnh nhân đến cơ sở y tế gần nhất."
+        },
+        {
+            "key": "other",
+            "value": "Nhập tay lý do từ chối / Hoặc yêu cầu bổ sung loại thông tin cần thiết trước khi đặt hẹn Khám từ xa"
+        }
+    ]
+}

@@ -1,0 +1,1830 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "NestJs Starter",
+    "description": "The NestJs Starter API description",
+    "version": "1.0",
+    "contact": {
+      "name": "mHealth",
+      "url": "https://wellcare.vn",
+      "email": "xinchao@wellcare.vn"
+    }
+  },
+  "tags": [{ "name": "starter", "description": "" }],
+  "servers": [
+    { "url": "http://localhost:8080/", "description": "local" },
+    { "url": "https://apis.staging.wellcare.vn", "description": "sandbox" }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": { "type": "apiKey", "in": "header", "name": "token" }
+    },
+    "schemas": {
+      "RegisterAdminDto": {
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "type": "string",
+            "example": "5fc4fed5454ae73afcae1c54"
+          }
+        }
+      },
+      "UserRoleDto": {
+        "type": "object",
+        "properties": {
+          "user": { "type": "string", "example": "5fc4fed5454ae73afcae1c54" },
+          "role": {
+            "type": "string",
+            "enum": ["admin", "patient", "provider", "agent"],
+            "default": "patient"
+          },
+          "uniqueId": {
+            "type": "string",
+            "example": "5fc4fed5454ae73afcae1c54"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "5fc4fed5454ae73afcae1c54"
+          },
+          "roles": {
+            "type": "string",
+            "enum": ["admin", "patient", "provider", "agent"],
+            "default": "patient"
+          },
+          "_id": { "type": "string", "example": "5fc4fed5454ae73afcae1c54" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": ["role"]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Robert Landon" },
+          "uniqueId": {
+            "type": "string",
+            "example": "5fc4fed5454ae73afcae1c54"
+          },
+          "createdBy": {
+            "type": "object",
+            "example": "5fc4fed5454ae73afcae1c54"
+          }
+        },
+        "required": ["name"]
+      },
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Robeerto" },
+          "uniqueId": {
+            "type": "string",
+            "example": "5fc4fed5454ae73afcae1c54"
+          },
+          "createdBy": {
+            "type": "object",
+            "example": "5fc4fed5454ae73afcae1c54"
+          },
+          "_id": { "type": "object", "example": "5fc4fed5454ae73afcae1c54" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        }
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Robeerto" },
+          "uniqueId": {
+            "type": "string",
+            "example": "5fc4fed5454ae73afcae1c54"
+          },
+          "createdBy": {
+            "type": "object",
+            "example": "5fc4fed5454ae73afcae1c54"
+          },
+          "_id": { "type": "object", "example": "5fc4fed5454ae73afcae1c54" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        }
+      },
+      "ArrayUpdateUserDto": { "type": "object", "properties": {} },
+      "CreateUserRoleDto": {
+        "type": "object",
+        "properties": {
+          "user": { "type": "string", "example": "5fc4fed5454ae73afcae1c54" },
+          "role": {
+            "type": "string",
+            "enum": ["admin", "patient", "provider", "agent"],
+            "default": "patient"
+          },
+          "uniqueId": {
+            "type": "string",
+            "example": "5fc4fed5454ae73afcae1c54"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "5fc4fed5454ae73afcae1c54"
+          }
+        },
+        "required": ["user", "role"]
+      }
+    }
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "HealthController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The Health Check is successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ok" },
+                    "info": {
+                      "type": "object",
+                      "example": { "database": { "status": "up" } },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {},
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": { "database": { "status": "up" } },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The Health Check is not successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "error" },
+                    "info": {
+                      "type": "object",
+                      "example": { "database": { "status": "up" } },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": { "status": "up" },
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchange/{exchange}/topic/{routingKey}": {
+      "post": {
+        "operationId": "MessagingController_pub",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["message-broker"]
+      }
+    },
+    "/exchange/{exchange}/topic/{routingKey}/queue/{name}/assert": {
+      "post": {
+        "operationId": "MessagingController_bind",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["message-broker"]
+      }
+    },
+    "/admin/register": {
+      "post": {
+        "operationId": "AdminController_create",
+        "parameters": [
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RegisterAdminDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserRoleDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "409" },
+                    "message": { "type": "string", "example": "Conflict" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["admin"]
+      }
+    },
+    "/user": {
+      "post": {
+        "operationId": "UserController_create",
+        "parameters": [
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDto" }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "406" },
+                    "message": { "type": "string", "example": "Not Acceptable" }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "409" },
+                    "message": { "type": "string", "example": "Conflict" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      },
+      "get": {
+        "operationId": "UserController_findAll",
+        "parameters": [
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "boolean" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserDto" }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user/find-or-create": {
+      "post": {
+        "operationId": "UserController_findOrCreate",
+        "parameters": [
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDto" }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "406" },
+                    "message": { "type": "string", "example": "Not Acceptable" }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "409" },
+                    "message": { "type": "string", "example": "Conflict" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user/count": {
+      "get": {
+        "operationId": "UserController_count",
+        "parameters": [
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "number" } }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user/search": {
+      "get": {
+        "operationId": "UserController_search",
+        "x-khe": {
+          "api": "search",
+          "searchFields": ["name"],
+          "filterFields": [],
+          "labelField": "name"
+        },
+        "parameters": [
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "boolean" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserDto" }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user/csv/download": {
+      "get": {
+        "operationId": "UserController_download",
+        "parameters": [
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserDto" }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user/publish/{exchange}/{topic}": {
+      "post": {
+        "operationId": "UserController_publish",
+        "parameters": [
+          {
+            "name": "batchSize",
+            "required": false,
+            "in": "query",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "201": { "description": "" },
+          "202": { "description": "" },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "operationId": "UserController_getById",
+        "parameters": [
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDto" }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "404" },
+                    "message": { "type": "string", "example": "Not Found" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      },
+      "put": {
+        "operationId": "UserController_updateByIdSet",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDto" }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "404" },
+                    "message": { "type": "string", "example": "Not Found" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      },
+      "delete": {
+        "operationId": "UserController_deleteById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDto" }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "404" },
+                    "message": { "type": "string", "example": "Not Found" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user/{id}/add-to-set": {
+      "put": {
+        "operationId": "UserController_updateByIdAddToSet",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ArrayUpdateUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDto" }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "404" },
+                    "message": { "type": "string", "example": "Not Found" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user/{id}/pull": {
+      "put": {
+        "operationId": "UserController_updateByIdPull",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ArrayUpdateUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDto" }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "404" },
+                    "message": { "type": "string", "example": "Not Found" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user/{id}/push": {
+      "put": {
+        "operationId": "UserController_updateByIdPush",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ArrayUpdateUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserDto" }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "404" },
+                    "message": { "type": "string", "example": "Not Found" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user-role/find-one-or-create": {
+      "post": {
+        "operationId": "UserRoleController_findOneOrCreate",
+        "parameters": [
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateUserRoleDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserRoleDto" }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "406" },
+                    "message": { "type": "string", "example": "Not Acceptable" }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "409" },
+                    "message": { "type": "string", "example": "Conflict" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user-role"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user-role/count": {
+      "get": {
+        "operationId": "UserRoleController_count",
+        "parameters": [
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "number" } }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user-role"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user-role": {
+      "get": {
+        "operationId": "UserRoleController_findAll",
+        "parameters": [
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "boolean" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserRoleDto" }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user-role"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user-role/search": {
+      "get": {
+        "operationId": "UserRoleController_search",
+        "x-khe": {
+          "api": "search",
+          "searchFields": ["name"],
+          "filterFields": [],
+          "labelField": "name"
+        },
+        "parameters": [
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "count",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "boolean" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserRoleDto" }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user-role"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user-role/csv/download": {
+      "get": {
+        "operationId": "UserRoleController_download",
+        "parameters": [
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserRoleDto" }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user-role"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user-role/publish/{exchange}/{topic}": {
+      "post": {
+        "operationId": "UserRoleController_publish",
+        "parameters": [
+          {
+            "name": "batchSize",
+            "required": false,
+            "in": "query",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "201": { "description": "" },
+          "202": { "description": "" },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user-role"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user-role/import": {
+      "post": {
+        "operationId": "UserRoleController_import",
+        "parameters": [],
+        "responses": {
+          "201": { "description": "" },
+          "202": { "description": "" },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user-role"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    },
+    "/user-role/{id}": {
+      "get": {
+        "operationId": "UserRoleController_getById",
+        "parameters": [
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          },
+          {
+            "name": "populate",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserRoleDto" }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "404" },
+                    "message": { "type": "string", "example": "Not Found" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user-role"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      },
+      "delete": {
+        "operationId": "UserRoleController_deleteById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["vi", "en"], "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserRoleDto" }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "403" },
+                    "message": {
+                      "type": "string",
+                      "example": "Forbidden Resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": { "type": "string", "example": "404" },
+                    "message": { "type": "string", "example": "Not Found" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["user-role"],
+        "security": [{ "ApiKeyAuth": ["token"] }]
+      }
+    }
+  }
+}

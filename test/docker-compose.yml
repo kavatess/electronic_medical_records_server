@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  test_rabbitmq:
+    image: mhealthvn/rabbitmq:latest 
+    container_name: test_rabbitmq
+
+  test_mongodb:
+    image: mongo:4.2
+    container_name: test_mongodb
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+  nestjs-starter:
+    image: nestjs-starter
+    container_name: nestjs-starter
+    depends_on:
+      - test_rabbitmq
+      - test_elasticsearch    
+    environment:
+      - ES_HOST=http://test_elasticsearch:9200
+      - RABBITMQ_URI=amqp://server:server@test_rabbitmq:5672
+      - AUTH_SECRET=wellcare-auth
+    working_dir: '/usr/src/app'
+    restart: on-failure
+    entrypoint: 'node dist/main'
+
+  tester:
+    build: .
+    container_name: tester
+    depends_on:
+      - nestjs-starter
+      - test_rabbitmq
+      - test_elasticsearch
+      - test_mongodb
+    command: dockerize
+      -wait tcp://test_rabbitmq:5672
+      -wait tcp://test_mongodb:27017
+      -wait tcp://nestjs-starter:8080
+      -timeout 300s
+      /bin/sh -c 
+      "newman run newman/nestjs-starter-test.postman_collection.json -e newman/env/test.json --bail --reporters cli,junit"    

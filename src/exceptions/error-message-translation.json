@@ -1,0 +1,12 @@
+{
+    "Forbidden resource" : {"en" : "Forbidden resource", "vi" : "Không có quyền truy cập"},
+    "Http Exception": {"en":"Http Exception","vi":"Yêu cầu không hợp lệ"}, 
+    "404 item not found" : {"en" : "404 item not found", "vi" : "404 không tìm thấy bản ghi"},
+    "11000 duplicated record" : {"en" : "11000 duplicated record", "vi" : "11000 bản ghi đã tồn tại"},
+    "406 validation failed" : {"en":"406 validation failed", "vi" : "406 validation failed"},
+    "404 Cannot POST" : {"en" : "404 Cannot send POST request", "vi" : "404 Không thể gửi POST"},
+    "Bad Request Exception" : {"en":"Bad Request Exception","vi":"Yêu cầu không hợp lệ"},
+    "500 TypeError detected" : {"en" : "500 TypeError detected", "vi" : "500 TypeError detected"},
+    "409 you cannot register a new superadmin" : {"en" : "409 you cannot register a new superadmin", "vi" : "409 tài khoản superadmin chỉ đăng ký một lần"},
+    "Service Unavailable Exception" : {"en" : "Service Unavailable Exception", "vi" : "Dịch vụ không sẵn sàng"}
+}

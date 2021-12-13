@@ -1,0 +1,274 @@
+kind: pipeline
+type: docker
+name: build
+
+workspace:
+  base: /drone
+  path: /drone/src
+
+steps:
+  - name: build image
+    image: docker:dind
+    pull: if-not-exists
+    volumes:
+    - name: dockersock
+      path: /var/run/docker.sock
+    environment:
+      GIT_TOKEN: ${GIT_TOKEN}
+    commands:
+      - docker build --rm -t mhealthvn/consultation-nestjs:${DRONE_COMMIT} . --build-arg GIT_COMMIT=${DRONE_COMMIT} --build-arg GIT_BRANCH=${DRONE_BRANCH} --build-arg GIT_TOKEN=${GIT_TOKEN}
+  
+  - name: notify slack
+    image: plugins/slack
+    pull: if-not-exists
+    settings:
+      webhook:
+        from_secret: SLACK_WEBHOOK
+      channel: app-build
+      template: >
+        {{build.author}} built https://drone.wellcare.vn/Wellcare/{{repo.name}}/{{build.number}} from {{build.branch}}
+        {{#success build.status}}
+          SUCCESS
+        {{else}}
+          FAILED
+        {{/success}}
+    when:
+      status: [ failure ]
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
+
+trigger:
+  branch:
+    - sandbox
+    - master
+  event:
+    - push
+    - tag
+---
+kind: pipeline
+type: docker
+name: test
+
+depends_on:
+  - build
+
+workspace:
+  base: /drone
+  path: /drone/src
+
+steps:
+  - name: delay
+    image: alpine
+    pull: if-not-exists
+    commands:
+      - sleep 5
+
+  - name: consultation-nestjs
+    image: mhealthvn/consultation-nestjs:${DRONE_COMMIT}
+    pull: if-not-exists
+    detach: true
+    environment:
+      ENV_FILEPATH: test.env
+
+  - name: test
+    image: mhealthvn/test-runner
+    pull: if-not-exists
+    commands:
+      - dockerize
+        -wait tcp://mongodb:27017
+        -wait tcp://rabbitmq:5672
+        -wait tcp://consultation-nestjs:8080
+        -timeout 300s
+        /bin/sh -c
+        "newman run test/newman/consultation-nestjs-test.postman_collection.json -e test/newman/env/test.json --bail --reporters cli,junit"
+
+  - name: notify slack
+    image: plugins/slack
+    pull: if-not-exists
+    settings:
+      webhook:
+        from_secret: SLACK_WEBHOOK
+      channel: app-build
+      template: >
+        {{build.author}} test https://drone.wellcare.vn/Wellcare/{{repo.name}}/{{build.number}} from {{build.branch}}
+        {{#success build.status}}
+          SUCCESS
+        {{else}}
+          FAILED
+        {{/success}}
+    when:
+      status: [ failure ]
+      
+services:
+  - name: mongodb
+    image: mongo:4.4
+    pull: if-not-exists
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  - name: rabbitmq
+    image: rabbitmq:management-alpine
+    pull: if-not-exists 
+
+trigger:
+  branch:
+    - sandbox
+    - master
+  event:
+    - push
+    - tag
+
+---
+kind: pipeline
+type: docker
+name: deploy-sandbox
+
+depends_on:
+  - test
+
+workspace:
+  base: /drone
+  path: /drone/src
+
+steps:
+  - name: push to registry
+    image: docker:dind
+    pull: if-not-exists
+    volumes:
+    - name: dockersock
+      path: /var/run/docker.sock
+    environment:
+      GIT_TOKEN: ${GIT_TOKEN}
+      DOCKER_USERNAME: 
+        from_secret: DOCKER_USERNAME
+      DOCKER_PASSWORD: 
+        from_secret: DOCKER_PASSWORD        
+    commands:
+      - docker login -u $${DOCKER_USERNAME} -p $${DOCKER_PASSWORD}
+      - docker tag mhealthvn/consultation-nestjs:${DRONE_COMMIT} mhealthvn/consultation-nestjs:${DRONE_BRANCH}
+      - docker push mhealthvn/consultation-nestjs:${DRONE_BRANCH} 
+
+  - name: redeploy service
+    image: sinlead/drone-kubectl
+    pull: if-not-exists
+    settings:
+      kubernetes_server:
+        from_secret: k8s_server
+      kubernetes_cert:
+        from_secret: k8s_cert
+      kubernetes_token:
+        from_secret: k8s_token
+    commands:
+    - kubectl delete pod -l "app.kubernetes.io/instance=consultation-server,app.kubernetes.io/name=api-server" -n service-backend
+
+  - name: notify slack
+    image: plugins/slack
+    pull: if-not-exists
+    settings:
+      webhook:
+        from_secret: SLACK_WEBHOOK
+      channel: app-build
+      template: >
+        {{build.author}} deployed https://drone.wellcare.vn/Wellcare/{{repo.name}}/{{build.number}} from {{build.branch}}
+        {{#success build.status}}
+          SUCCESS
+        {{else}}
+          FAILED
+        {{/success}}
+    when:
+      status: [ success, failure ]
+
+trigger:
+  branch:
+    - sandbox
+  event:
+    - push
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
+
+
+---
+kind: pipeline
+name: release
+type: docker
+
+depends_on:
+  - test
+
+workspace:
+  base: /drone
+  path: /drone/src
+
+steps:
+  - name: push to registry
+    image: docker:dind
+    pull: if-not-exists
+    volumes:
+    - name: dockersock
+      path: /var/run/docker.sock
+    environment:
+      GIT_TOKEN: ${GIT_TOKEN}
+      DOCKER_USERNAME: 
+        from_secret: DOCKER_USERNAME
+      DOCKER_PASSWORD: 
+        from_secret: DOCKER_PASSWORD        
+    commands:
+      - docker login -u $${DOCKER_USERNAME} -p $${DOCKER_PASSWORD}
+      - docker tag mhealthvn/consultation-nestjs:${DRONE_COMMIT} mhealthvn/consultation-nestjs:$${DRONE_TAG##v}
+      - docker push mhealthvn/consultation-nestjs:$${DRONE_TAG##v} 
+      - docker rmi mhealthvn/consultation-nestjs:${DRONE_COMMIT}
+
+  - name: deploy release
+    image : mhealthvn/drone-helm3:1.0
+    pull: if-not-exists
+    settings:
+      kube_api_server:
+        from_secret: kube_api_server_production
+      kube_token:
+        from_secret: kube_token_production
+      kube_certificate:
+        from_secret: kube_certificate_production
+      namespace: backend
+      helm_repos:
+        - wellcare=https://helm-wellcare.storage.googleapis.com
+      envsubst: true
+      chart: wellcare/api-server
+      wait: false
+      release: consultation-nestjs
+      version: "1.0.0"
+      lint: false
+      build_dependencies: false
+      values:
+      - image.tag=${DRONE_TAG##v}
+
+  - name: notify slack
+    image: plugins/slack
+    pull: if-not-exists
+    settings:
+      webhook:
+        from_secret: SLACK_WEBHOOK
+      channel: app-build
+      template: >
+        {{build.author}} built and published https://drone.wellcare.vn/Wellcare/{{repo.name}}/{{build.number}} from {{build.branch}}
+        {{#success build.status}}
+          SUCCESS
+        {{else}}
+          FAILED
+        {{/success}}
+    when:
+      status: [ success, failure ]
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
+
+trigger:
+  event:
+    - tag

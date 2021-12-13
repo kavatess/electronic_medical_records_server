@@ -1,0 +1,7 @@
+**
+!src
+!default.env
+!test.env
+!*.ts
+!*.json
+!*.js

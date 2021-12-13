@@ -1,0 +1,21 @@
+{
+    "title": "",
+    "options": [
+        {
+            "key": "reason-1",
+            "value": "Wrong specialty"
+        },
+        {
+            "key": "reason-2",
+            "value": "Recovery"
+        },
+        {
+            "key": "reason-3",
+            "value": "Can't wait"
+        },
+        {
+            "key": "other",
+            "value": "Other"
+        }
+    ]
+}

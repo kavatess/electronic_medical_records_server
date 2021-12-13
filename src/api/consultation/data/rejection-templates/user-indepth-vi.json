@@ -1,0 +1,21 @@
+{
+    "title": "",
+    "options": [
+        {
+            "key": "reason-1",
+            "value": "Nhầm chuyên khoa"
+        },
+        {
+            "key": "reason-2",
+            "value": "Đã khỏi bệnh"
+        },
+        {
+            "key": "reason-3",
+            "value": "Không thể chờ đến giờ hẹn"
+        },
+        {
+            "key": "other",
+            "value": "Khác"
+        }
+    ]
+}
